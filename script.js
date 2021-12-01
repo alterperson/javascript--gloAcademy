@@ -36,15 +36,17 @@ const getFullPrice = function fullPrice(priceForScreen) {
   return priceForScreen + getAllServicePrices(servicePrice1, servicePrice2);
 };
 
-function getTitle(title) {
-  return title;
+function getTitle(text) {
+  let trimText = text.trim().toLowerCase();
+  let capitalizeText = trimText.charAt(0).toUpperCase() + trimText.slice(1);
+  return capitalizeText;
 }
 
 const getServicePercentPrices = function servicePercentPrices() {
   return getFullPrice(screenPrice) - getFullPrice(screenPrice) * (rollback / 100);
 };
 
-showTypeOf(title);
+showTypeOf(getTitle(title));
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 console.log(screens.split(", "));
