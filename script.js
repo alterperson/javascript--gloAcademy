@@ -28,12 +28,12 @@ const getRollbackMessage = function (price) {
   }
 };
 
-const allServicePrices = function (priceForService1, priceForService2) {
+const getAllServicePrices = function (priceForService1, priceForService2) {
   return priceForService1 + priceForService2;
 };
 
 const getFullPrice = function fullPrice(priceForScreen) {
-  return priceForScreen + allServicePrices(servicePrice1, servicePrice2);
+  return priceForScreen + getAllServicePrices(servicePrice1, servicePrice2);
 };
 
 function getTitle(title) {
@@ -41,7 +41,7 @@ function getTitle(title) {
 }
 
 const getServicePercentPrices = function servicePercentPrices() {
-  return getFullPrice(screenPrice) - servicePercentPrice;
+  return getFullPrice(screenPrice) - getFullPrice(screenPrice) * (rollback / 100);
 };
 
 showTypeOf(title);
