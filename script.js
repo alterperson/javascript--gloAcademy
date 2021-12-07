@@ -48,7 +48,7 @@ const appData = {
       let name = '';
 
       do {
-        name = prompt("Какой дополнительный тип услуги нужен?", "Метрика, Адаптив");
+        name =`${i + 1}. ` + prompt("Какой дополнительный тип услуги нужен?", "Метрика, Адаптив");
       } while (!isNaN(name))
 
       let price = 0;
@@ -63,15 +63,16 @@ const appData = {
     this.adaptive = confirm("Нужен ли адаптив на сайте?");
   },
   addPrices: function () {
-    for (let screen of this.screens) {
-      this.screenPrice += +screen.price
-    }
     for (let key in this.services) {
       this.allServicePrices += this.services[key]
     }
   },
   getFullPrice: function () {
-    this.fullPrice = +this.screenPrice + this.allServicePrices;
+    const screenPrice = this.screens.reduce(function (sum, item) {
+      return sum += +item.price
+    }, 0)
+
+    this.fullPrice = +screenPrice + this.allServicePrices;
   },
   getServicePercentPrice: function () {
     this.servicePercentPrice = this.fullPrice - this.fullPrice * (this.rollback / 100);
@@ -94,6 +95,7 @@ const appData = {
     console.log(`fullPrice: ${this.fullPrice}`);
     console.log(`servicePercentPrice: ${this.servicePercentPrice}`);
     console.log('screens', this.screens);
+    console.log('services', this.services);
   }
 }
 
