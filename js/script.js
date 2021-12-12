@@ -1,18 +1,22 @@
 "use strict";
 
 const title = document.getElementsByTagName('h1')[0];
-const handlerBtn = document.getElementsByClassName('handler_btn');
-const plusButton = document.querySelector('.screen-btn');
-const percentItem = document.querySelectorAll('.other-items.percent');
-const numberItem = document.querySelectorAll('.other-items.number');
-const rollbackDiv = document.querySelector('.rollback');
-const inputRollback = rollbackDiv.querySelector('[type="range"]');
-const rangeValue = rollbackDiv.querySelector('.range-value');
-const totalInput = document.getElementsByClassName('total-input')[0];
+const buttonPlus = document.querySelector('.screen-btn');
+const otherItemsPercent = document.querySelectorAll('.other-items.percent');
+const otherItemsNumber = document.querySelectorAll('.other-items.number');
+
+const inputRange = document.querySelector('.rollback input');
+const inputRangeValue = document.querySelector('.rollback .range-value');
+
+const startBtn = document.getElementsByClassName('handler_btn')[0];
+const resetBtn = document.getElementsByClassName('handler_btn')[1];
+
+const total = document.getElementsByClassName('total-input')[0];
 const totalCount = document.getElementsByClassName('total-input')[1];
 const totalCountOther = document.getElementsByClassName('total-input')[2];
 const totalFullCount = document.getElementsByClassName('total-input')[3];
 const totalCountRollback = document.getElementsByClassName('total-input')[4];
+
 let screenDivs = document.querySelectorAll('.screen');
 
 const appData = {
