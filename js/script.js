@@ -56,7 +56,7 @@ const appData = {
       const select = screen.querySelector('select');
       const input = screen.querySelector('input');
 
-      if (select.value === '' && input.value === '') {
+      if (select.value === '' || (input.value === '' && isFinite(input))) {
         appData.isError = true;
       }
     })
@@ -136,7 +136,6 @@ const appData = {
     appData.fullPrice = +appData.screenPrice + appData.servicePricesNumber + appData.servicePricesPercent;
 
     appData.servicePercentPrice = appData.fullPrice - appData.fullPrice * (+appData.rollback / 100);
-    console.log(appData.rollback);
   },
   logger: function () {
     console.log(`fullPrice: ${appData.fullPrice}`);
