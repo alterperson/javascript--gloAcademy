@@ -31,15 +31,6 @@ const appData = {
   servicePercentPrice: 0,
   servicesPercent: {},
   servicesNumber: {},
-  // Подсчёт экранов
-  countScreens: function () {
-    const screensInput = document.querySelectorAll('.screen input')
-    let count = 0
-    screensInput.forEach((item) => {
-        count += +item.value;
-    })
-    return count;
-  },
   isError: false,
   init: function () {
     appData.addTitle();
@@ -61,6 +52,7 @@ const appData = {
   addScreenBlock: function () {
     const screens = document.querySelectorAll('.screen');
     const cloneScreen = screens[0].cloneNode(true);
+    cloneScreen.querySelector('input').value = '';
     screens[screens.length - 1].after(cloneScreen);
   },
   // Проверка наличия значений в полях
@@ -81,24 +73,6 @@ const appData = {
     } else {
       alert('Поля не заполнены')
     }
-  },
-  // Подсчёт цены
-  addPrices: function () {
-    appData.screenPrice = appData.screens.reduce(function (sum, item) {
-      return sum += +item.price
-    }, 0)
-
-    for (let key in appData.servicesNumber) {
-      appData.servicePricesNumber += appData.servicesNumber[key];
-    }
-
-    for (let key in appData.servicesPercent) {
-      appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[key] / 100);
-    }
-
-    appData.fullPrice = +appData.screenPrice + +appData.servicePricesNumber + +appData.servicePricesPercent;
-
-    appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (+appData.rollback / 100));
   },
   // Добавление экранов
   addScreens: function () {
@@ -137,6 +111,33 @@ const appData = {
         appData.servicesNumber[label.textContent] = +input.value;
       }
     })
+  },
+  // Подсчёт цены
+  addPrices: function () {
+    appData.screenPrice = appData.screens.reduce(function (sum, item) {
+      return sum += +item.price
+    }, 0)
+
+    for (let key in appData.servicesNumber) {
+      appData.servicePricesNumber += appData.servicesNumber[key];
+    }
+
+    for (let key in appData.servicesPercent) {
+      appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[key] / 100);
+    }
+
+    appData.fullPrice = +appData.screenPrice + +appData.servicePricesNumber + +appData.servicePricesPercent;
+
+    appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (+appData.rollback / 100));
+  },
+  // Подсчёт экранов
+  countScreens: function () {
+    const screensInput = document.querySelectorAll('.screen input')
+    let count = 0
+    screensInput.forEach((item) => {
+        count += +item.value;
+    })
+    return count;
   },
   // Вывод результатов
   showResult: function () {
