@@ -140,6 +140,7 @@ const appData = {
     })
     return count;
   },
+  // Отметка CMS
   openCms: function () {
     const cmsHidden = document.querySelector('.hidden-cms-variants');
     const cmsSelect = cmsHidden.querySelector('#cms-select');
@@ -147,11 +148,15 @@ const appData = {
 
     if (cmsCheck.checked) {
       cmsHidden.style.display = 'flex';
+    } else {
+      cmsHidden.style.display = 'none';
     }
 
     cmsSelect.addEventListener('change', function () {
       if (cmsSelect.value === 'other') {
         cmsHiddenInput.style.display = 'block';
+      } else {
+        cmsHiddenInput.style.display = 'none';
       }
     })
   },
