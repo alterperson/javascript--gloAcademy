@@ -18,6 +18,7 @@ const totalFullCount = document.getElementsByClassName('total-input')[3];
 const totalCountRollback = document.getElementsByClassName('total-input')[4];
 
 let screens = document.querySelectorAll('.screen');
+const cmsCheck = document.querySelector('#cms-open');
 
 const appData = {
   title: '',
@@ -36,8 +37,9 @@ const appData = {
     this.addTitle();
     buttonPlus.addEventListener('click', this.addScreenBlock);
     startBtn.addEventListener('click', this.checkValues.bind(this));
-    resetBtn.addEventListener('click', this.reset.bind(this))
+    resetBtn.addEventListener('click', this.reset.bind(this));
     inputRange.addEventListener('input', this.changeRangeValue.bind(this));
+    cmsCheck.addEventListener('change', this.openCms);
   },
     // Изменение отката
   changeRangeValue: function () {
@@ -138,6 +140,21 @@ const appData = {
     })
     return count;
   },
+  openCms: function () {
+    const cmsHidden = document.querySelector('.hidden-cms-variants');
+    const cmsSelect = cmsHidden.querySelector('#cms-select');
+    const cmsHiddenInput = cmsHidden.querySelector('.main-controls__input');
+
+    if (cmsCheck.checked) {
+      cmsHidden.style.display = 'flex';
+    }
+
+    cmsSelect.addEventListener('change', function () {
+      if (cmsSelect.value === 'other') {
+        cmsHiddenInput.style.display = 'block';
+      }
+    })
+  },
   // Вывод результатов
   showResult: function () {
     total.value = this.screenPrice;
@@ -195,10 +212,10 @@ const appData = {
       check.checked = false;
     })
 
-    // Код для обнуления отката при сбросе, расскоментировать при необходимости
-    // inputRange.value = 0;
-    // inputRangeValue.textContent = '0%';
-    // this.changeRangeValue();
+    // Код для обнуления отката при сбросе
+    inputRange.value = 0;
+    inputRangeValue.textContent = '0%';
+    this.changeRangeValue();
 
   },
   clearScreens: function () {
@@ -209,7 +226,7 @@ const appData = {
       const inputs = screen.querySelectorAll('input');
 
       selects.forEach(select => {
-        select.value = select.options[0].textContent;
+        select.selectedIndex = 0;
         if (index !== 0) {
           select.remove();
         }
